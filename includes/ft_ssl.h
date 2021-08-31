@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:46:23 by lucien            #+#    #+#             */
-/*   Updated: 2021/08/31 09:49:06 by lucien           ###   ########.fr       */
+/*   Updated: 2021/08/31 14:40:08 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define ROTATE_RIGHT(x, n) (((x) >> (n)) | ((x) << (32-(n))))
 # define ROTATE_RIGHT_64(x, n) (((x) >> (n)) | ((x) << (64-(n))))
 
-typedef enum	e_bool {
+typedef enum e_bool
+{
 	FALSE,
 	TRUE
 }				t_bool;
@@ -33,6 +34,19 @@ typedef uint32_t	t_64_uint32[64];
 typedef uint64_t	t_80_uint32[80];
 typedef uint64_t	t_80_uint64[80];
 
-
+char			*ft_uitoa_base_len(uintmax_t nb, intmax_t base, \
+					char letter, size_t len);
+uint64_t		ft_bswap_uint64(uint64_t x);
+uint32_t		ft_bswap_uint32(uint32_t x);
+void			ft_uint64_arr_assign_add(uint64_t *dst, \
+		const uint64_t *src, size_t len);
+void			ft_uint32_arr_assign_add(uint32_t *dst, \
+		const uint32_t *src, size_t len);
+unsigned char	*build_msg(const char *msg, size_t msg_len, size_t \
+							formatted_msg_len, t_bool is_little_endian);
+char			*build_hash(uint32_t *buffers, size_t buffer_count, \
+		t_bool is_little_endian);
+char			*build_hash_64(uint64_t *buffers, size_t buffer_count, \
+		t_bool is_little_endian);
 
 #endif

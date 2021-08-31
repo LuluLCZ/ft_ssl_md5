@@ -6,11 +6,11 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 13:20:50 by lucien            #+#    #+#             */
-/*   Updated: 2021/08/31 10:12:24 by lucien           ###   ########.fr       */
+/*   Updated: 2021/08/31 10:33:04 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_ssl.h";
+#include "../includes/ft_ssl.h"
 
 const uint32_t	g_S[64] = {
 	7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
@@ -86,9 +86,9 @@ const uint32_t	g_K[64] = {
 	0xeb86d391
 };
 
-const uint32_t g_variables = {
+const t_4_uint32	g_variables = {
 	0x67452301,
-	0xefcdab89,
-	0x98badcfe,
+	0xEFCDAB89,
+	0x98BADCFE,
 	0x10325476
 };
