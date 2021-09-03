@@ -6,7 +6,7 @@
 #    By: lucien <lucien@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/06 08:52:01 by lucien            #+#    #+#              #
-#    Updated: 2021/08/31 14:40:37 by lucien           ###   ########.fr        #
+#    Updated: 2021/09/03 09:55:28 by lucien           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -Rfv
 
-SRC =   const.c \
-		first_steps.c \
+SRC =   const_md5.c \
+		md5.c \
 		utils_1.c \
 		itoa_base.c \
-		swap.c
+		swap.c\
+		sha256.c\
+		const_sha256.c
 
 SRC1 = $(SRC)
 # SRC2 = $(SRC)
@@ -59,7 +61,7 @@ $(NAME1) : libft $(OBJS1)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 				@mkdir -p $(DIR_OBJ)
-				$(CC) $(CFLAGS) -c -o $@ -I./includes/ft_nm.h -I./includes/.ft_ssl.h -I./libft/includes $^
+				$(CC) $(CFLAGS) -c -o $@ -I./includes/md5.h -I./includes/sha256.h -I./includes/.ft_ssl.h -I./libft/includes $^
 
 libft:
 				make -C $(HEAD_DIR)

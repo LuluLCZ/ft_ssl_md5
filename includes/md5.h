@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 13:53:02 by lucien            #+#    #+#             */
-/*   Updated: 2021/08/31 14:41:59 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/03 09:39:52 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define MD5_H
 
 # include "./ft_ssl.h"
-
-# define DEC(x) (x - 1)
 
 /* Chunks of 512 bits */
 # define MD5_CHUNK_SIZE 64

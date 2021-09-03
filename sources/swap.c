@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:29:11 by lucien            #+#    #+#             */
-/*   Updated: 2021/08/31 14:32:46 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/03 09:17:14 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,18 @@ void	ft_uint32_arr_assign_add(uint32_t *dst,
 	{
 		dst[i] += src[i];
 		i++;
+	}
+}
+
+void	ft_copy_to_buffer(uint32_t *dst, \
+				const uint32_t *src, size_t len)
+{
+	size_t		index;
+
+	index = 0;
+	while (index < len)
+	{
+		dst[index] = src[index];
+		index++;
 	}
 }
