@@ -6,7 +6,7 @@
 #    By: lucien <lucien@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/06 08:52:01 by lucien            #+#    #+#              #
-#    Updated: 2021/09/03 09:55:28 by lucien           ###   ########.fr        #
+#    Updated: 2021/09/23 17:37:34 by lucien           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,11 @@ SRC =   const_md5.c \
 		itoa_base.c \
 		swap.c\
 		sha256.c\
-		const_sha256.c
+		const_sha256.c\
+		read_file.c\
+		parse_command.c\
+		ft_ssl.c\
+		sha_ops.c
 
 SRC1 = $(SRC)
 # SRC2 = $(SRC)
@@ -61,7 +65,7 @@ $(NAME1) : libft $(OBJS1)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 				@mkdir -p $(DIR_OBJ)
-				$(CC) $(CFLAGS) -c -o $@ -I./includes/md5.h -I./includes/sha256.h -I./includes/.ft_ssl.h -I./libft/includes $^
+				$(CC) $(CFLAGS) -c -o $@ -I./includes/md5.h -I./includes/sha256.h -I./includes/.ft_ssl.h -I./malloc/includes/malloc.h -I./includes/.init.h -I./libft/includes $^
 
 libft:
 				make -C $(HEAD_DIR)

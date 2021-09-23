@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llacaze <llacaze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:53:25 by llacaze           #+#    #+#             */
-/*   Updated: 2019/12/13 14:17:28 by llacaze          ###   ########.fr       */
+/*   Updated: 2021/09/23 12:07:27 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,8 @@ char				*remove_char(char *str, char c);
 void				free_tab(char **str);
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strdup_size(char *src, int n);
+char				*ft_del_nl(char *s1);
+
+
 
 #endif

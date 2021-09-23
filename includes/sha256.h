@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 10:09:25 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/03 09:57:05 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/23 17:36:48 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define SHA_S(len) ((len + 1 + 8 + DEC(SHA256_SIZE)) & ~DEC(SHA256_SIZE))
 # define SHA256_CHUNK_COUNT(len) (SHA_S(len) / SHA256_SIZE)
 
-# define CH(x, y, z) (((x) & (y)) | (~(x) & (z)))
-# define MAJ(x, y, z) (((x) & (y)) | ((x) & (z)) | ((y) & (z)))
+# define CH(x, y, z) (((x & y) | (~x | z)))
+# define MAJ(x, y, z) (((x & y) ^ (x & z) ^ (y & z)))
 # define SIGMA1(x) (ROTATE_RIGHT(x, 2) ^ ROTATE_RIGHT(x, 13) ^ ROTATE_RIGHT(x, 22))
 # define SIGMA2(x) (ROTATE_RIGHT(x, 6) ^ ROTATE_RIGHT(x, 11) ^ ROTATE_RIGHT(x, 25))
 # define SIGMA3(x) (ROTATE_RIGHT(x, 7) ^ ROTATE_RIGHT(x, 18) ^ (x >> 3))

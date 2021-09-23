@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: llacaze <llacaze@student.42.fr>            +#+  +:+       +#+         #
+#    By: lucien <lucien@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/09 16:14:07 by llacaze           #+#    #+#              #
-#    Updated: 2019/10/10 16:26:32 by llacaze          ###   ########.fr        #
+#    Updated: 2021/09/23 12:09:02 by lucien           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,8 @@ SRC =   ft_atoi.c			\
 		ft_lstdel.c			\
 		ft_lstadd.c			\
 		ft_lstiter.c		\
-		ft_lstmap.c
+		ft_lstmap.c			\
+		ft_del_nl.c			
 
 OBJP =	$(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 INCP =	$(foreach dir, $(INCDIR), -I$(dir))

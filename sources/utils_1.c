@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:36:48 by lucien            #+#    #+#             */
-/*   Updated: 2021/08/31 14:39:55 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/23 16:22:26 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*build_hash(uint32_t *buffers, size_t buffer_count, \
 	char		*tmp_hash;
 	size_t		buffer_i;
 	uint32_t	buffer;
+	
 
 	buffer_i = 0;
 	if (!(hash = ft_strnew(buffer_count * 8)))
@@ -48,29 +49,6 @@ char	*build_hash(uint32_t *buffers, size_t buffer_count, \
 		if (!(tmp_hash = ft_uitoa_base_len(buffer, 16, 'a', 8)))
 			return (NULL);
 		ft_strncpy(hash + (buffer_i * 8), tmp_hash, 8);
-		free(tmp_hash);
-		buffer_i++;
-	}
-	return (hash);
-}
-
-char	*build_hash_64(uint64_t *buffers, size_t buffer_count, \
-		t_bool is_little_endian)
-{
-	char		*hash;
-	char		*tmp_hash;
-	size_t		buffer_i;
-	uint64_t	buffer;
-
-	buffer_i = 0;
-	if (!(hash = ft_strnew(buffer_count * 8)))
-		return (NULL);
-	while (buffer_i < buffer_count) 
-	{
-		buffer = is_little_endian ? ft_bswap_uint64(buffers[buffer_i]) : buffers[buffer_i];
-		if (!(tmp_hash = ft_uitoa_base_len(buffer, 16, 'a', 16)))
-			return (NULL);
-		ft_strncpy(hash + (buffer_i * 16), tmp_hash, 16);
 		free(tmp_hash);
 		buffer_i++;
 	}
