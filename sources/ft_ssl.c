@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 10:58:50 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/23 17:18:03 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/24 17:28:57 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,46 @@
 
 void    parse_stdin(t_args *args) {
     char *data;
+    char *result;
 
     if (args->flags->p == TRUE || !args->real_args[0]) {
         if (!(data = read_file_content(0)))
             exit(-1);
         if (args->flags->p) {
-            if (args->flags->q == FALSE) {
+            if (args->flags->q == FALSE && args->flags->r == FALSE) {
                 ft_putstr("(\"");
                 ft_putstr(ft_del_nl(data));
                 ft_putstr("\") = ");
             }
-            if (args->algo == 'm')
-                ft_putstr(ft_md5(data, ft_strlen(data)));
-            else
-                ft_putstr(ft_sha_256(data, ft_strlen(data)));
+            if (args->algo == 'm') {
+                result = ft_md5(data, ft_strlen(data));
+                ft_putstr(result);
+                free(result);
+            }
+            else {
+                result = ft_sha_256(data, ft_strlen(data));
+                ft_putstr(result);
+                free(result);
+            }
+            if (args->flags->q == FALSE && args->flags->r == TRUE) {
+                ft_putstr(" (\"");
+                ft_putstr(ft_del_nl(data));
+                ft_putstr("\")");
+            }
             ft_putchar('\n');
+            free(data);
         } else {
             ft_putstr("(stdin)= ");
-            if (args->algo == 'm')
-                ft_putstr(ft_md5(data, ft_strlen(data)));
-            else 
-                ft_putstr(ft_sha_256(data, ft_strlen(data)));
+            if (args->algo == 'm') {
+                result = ft_md5(data, ft_strlen(data));
+                ft_putstr(result);
+                free(result);
+            }
+            else  {
+                result = ft_sha_256(data, ft_strlen(data));
+                ft_putstr(result);
+                free(result);
+            }
             ft_putchar('\n');
             free(data);
         }
@@ -56,49 +75,53 @@ void    run_hash_s(t_args *args) {
             }
             if (args->flags->r == TRUE && args->flags->q == FALSE) {
                 ft_putstr(dataa);
-                ft_putchar('"');
+                ft_putstr(" \"");
                 ft_putstr(args->real_args[0]);
                 ft_putstr("\"\n");
             }
+        } else {
+            ft_putstr(dataa);
+            ft_putchar('\n');
         }
     }
     free(dataa);
 }
 
-void       process_last_args(t_args *args) {
+void       process_last_args(t_args *args, char *arg) {
     int i = 0;
     char    *data;
+    char    *result;
 
-    if (args->flags->s == TRUE) i = 1;
-    while (args->real_args[i]) {
-        data = retrieve_content(args->real_args[i]);
-        if (data == NULL) {
-            ft_putstr_fd("ft_ssl: ", 2);
-            ft_putstr_fd(args->algo == 'm' ? "md5: " : "sha256: ", 2);
-            ft_putstr_fd(args->real_args[i], 2);
-            ft_putstr_fd(": No such file or directory", 2);
-        } else {
-            if (args->flags->q == FALSE && args->flags->r == FALSE) {
-                ft_putstr(args->algo == 'm' ? "MD5 (" : "SHA256 (");
-                ft_putstr(args->real_args[i]);
-                ft_putstr(") = ");
-            }
-            if (data != NULL)
-                ft_putstr(args->algo == 'm' ? ft_md5(data, ft_strlen(data)) : ft_sha_256(data, ft_strlen(data)));
-            if (args->flags->q == FALSE && args->flags->r == TRUE) {
-                ft_putchar('"');
-                ft_putstr(args->real_args[i]);
-                ft_putstr("\"\n");
-            }
+    data = retrieve_content(arg);
+    if (data == NULL) {
+        ft_putstr_fd("ft_ssl: ", 2);
+        ft_putstr_fd(args->algo == 'm' ? "md5: " : "sha256: ", 2);
+        ft_putstr_fd(args->real_args[i], 2);
+        ft_putstr_fd(": No such file or directory\n", 2);
+    } else {
+        result = args->algo == 'm' ? ft_md5(data, ft_strlen(data)) : ft_sha_256(data, ft_strlen(data));
+        if (args->flags->q == FALSE && args->flags->r == FALSE) {
+            ft_putstr(args->algo == 'm' ? "MD5 (" : "SHA256 (");
+            ft_putstr(args->real_args[i]);
+            ft_putstr(") = ");
         }
-        free(data);
-        i++;
+        ft_putstr(result);
+        if (args->flags->q == FALSE && args->flags->r == TRUE) {
+            ft_putstr(" \"");
+            ft_putstr(args->real_args[i]);
+            ft_putstr("\"");
+        }
+        ft_putstr("\n");
+        free(result);
     }
+    free(data);
+    i++;
 }
 
 int	main(int ac, char **av)
 {
 	t_args	*args;
+    int     i = 0;
 
     if (!(args = malloc(sizeof(t_args)))) {
         exit(-1);
@@ -115,10 +138,17 @@ int	main(int ac, char **av)
             exit (-1);
         }
         args = check_arg(ac, av, args);
-        parse_stdin(args);
+        if (args->flags->p || !args->real_args[0])
+            parse_stdin(args);
         if (args->flags->s == TRUE)
             run_hash_s(args);
-        process_last_args(args);
+        if (args->flags->s == TRUE)
+            i = 1;
+        while (args->real_args[i]) {
+            if ((args->flags->s == FALSE && args->real_args[0]) || (args->flags->s == TRUE && args->real_args[1]))
+                process_last_args(args, args->real_args[i]);
+            i++;
+        }
     }
 	return (0);
 }

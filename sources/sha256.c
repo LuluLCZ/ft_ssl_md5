@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 10:09:09 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/23 18:29:51 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/24 16:18:39 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_chunk(t_64_uint32 chunk, unsigned char *padded_msg) {
 		if (i < 16)
 			chunk[i] = ft_bswap_uint32(((uint32_t *)padded_msg)[i]);
 		else
-			chunk[i] = chunk[i - 16] + SIGMA3(chunk[i - 15]) + chunk[i - 7] + SIGMA4(chunk[i - 2]);
+			chunk[i] = chunk[i - 16] + sigma_3(chunk[i - 15]) + chunk[i - 7] + sigma_4(chunk[i - 2]);
 		i++;
 	}
 }
@@ -32,10 +32,9 @@ void	sha256_process_1(t_8_uint32 tmp_buff, t_64_uint32 chunk)
 	uint32_t	temp2;
 
 	t = 0;
-	// printf("\n[%u][%u][%u][%u][%u][%u][%u][%u] avant", chunk[A],chunk[B],chunk[C],chunk[3],chunk[4],chunk[5],chunk[6],chunk[7]);
 	while (t < 64) {
-		temp1 = tmp_buff[H] + sha256_op_b(tmp_buff[E]) + sha256_op_ch(tmp_buff[E], tmp_buff[F], tmp_buff[G]) + g_256_K[t] + chunk[t];
-		temp2 = SIGMA1(tmp_buff[A]) + MAJ(tmp_buff[A], tmp_buff[B], tmp_buff[C]);
+		temp1 = tmp_buff[H] + sigma_2(tmp_buff[E]) + ch(tmp_buff[E], tmp_buff[F], tmp_buff[G]) + g_256_K[t] + chunk[t];
+		temp2 = sigma_1(tmp_buff[A]) + maj(tmp_buff[A], tmp_buff[B], tmp_buff[C]);
 		tmp_buff[H] = tmp_buff[G];
 		tmp_buff[G] = tmp_buff[F];
 		tmp_buff[F] = tmp_buff[E];
@@ -45,7 +44,6 @@ void	sha256_process_1(t_8_uint32 tmp_buff, t_64_uint32 chunk)
 		tmp_buff[B] = tmp_buff[A];
 		tmp_buff[A] = temp1 + temp2;
 		t++;
-		printf("\n[%u][%u] apres", temp1, temp2);
 	}
 }
 
@@ -68,7 +66,6 @@ static void	sha256_form_buffer(unsigned char *padded_msg, \
 		ft_uint32_arr_assign_add(buffers, tmp_buff, 8);
 		chunk_i++;
 	}
-	// printf("%zu chunki", chunk_i);
 }
 
 char	*ft_sha_256(const char *msg, size_t msg_len) {

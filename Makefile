@@ -6,7 +6,7 @@
 #    By: lucien <lucien@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/06 08:52:01 by lucien            #+#    #+#              #
-#    Updated: 2021/09/23 17:37:34 by lucien           ###   ########.fr        #
+#    Updated: 2021/09/24 16:11:22 by lucien           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC =   const_md5.c \
 		read_file.c\
 		parse_command.c\
 		ft_ssl.c\
-		sha_ops.c
+		sha_ops.c\
+		md5_ops.c
 
 SRC1 = $(SRC)
 # SRC2 = $(SRC)

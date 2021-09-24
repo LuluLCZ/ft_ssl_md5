@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:46:12 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/23 16:20:33 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/24 17:01:37 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,25 @@ static void	md5_process(size_t chunk_cursor, t_4_uint32 tmp_buff, \
 	if (chunk_cursor < 16)
 	{
 		f = F(tmp_buff[B], tmp_buff[C], tmp_buff[D]);
+		// f = F1(tmp_buff);
 		g = chunk_cursor;
 	}
 	else if (chunk_cursor < 32)
 	{
 		f = G(tmp_buff[B], tmp_buff[C], tmp_buff[D]);
+		// f = G1(tmp_buff);
 		g = (5 * chunk_cursor + 1) % 16;
 	}
 	else if (chunk_cursor < 48)
 	{
 		f = H(tmp_buff[B], tmp_buff[C], tmp_buff[D]);
+		// f = H1(tmp_buff);
 		g = (3 * chunk_cursor + 5) % 16;
 	}
 	else
 	{
 		f = I(tmp_buff[B], tmp_buff[C], tmp_buff[D]);
+		// f = I1(tmp_buff);
 		g = (7 * chunk_cursor) % 16;
 	}
 	md5_shuffle(f, g, tmp_buff, chunk_cursor, chunk);
@@ -84,18 +88,6 @@ char	*ft_md5(const char *msg, size_t msg_len)
 		MD5_CHUNK_SIZE, TRUE)))
 		return (NULL);
 	md5_form_buffer(padded_msg, msg_len, buffers);
+	free(padded_msg);
 	return (build_hash(buffers, 4, TRUE));
 }
-
-// int	main(int ac, char **av)
-// {
-// 	char	*test;
-
-// 	if (ac < 0)
-// 	{
-// 		write(1, "nop", 3);
-// 	}
-// 	test = ft_strdup(av[1]);
-// 	printf("\n%s", ft_md5(test, ft_strlen(test)));
-// 	return (0);
-// }
