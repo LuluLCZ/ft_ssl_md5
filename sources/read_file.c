@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:26:54 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/24 17:48:12 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/26 15:35:32 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 char    *read_file_content(int fd) {
     char    *str;
-    // char    *file_data_tmp;
     char    *file_data;
     int     len;
     int     i = 0;
     char    buff[10];
 
-    if (!(file_data = (char *)malloc(sizeof(char) * 11))) {
+    if (!(file_data = (char *)malloc(sizeof(char) * 10))) {
         ft_putstr_fd("Erreur lors de l'allocation mémoire", 2);
         return (NULL);
     }
@@ -36,12 +35,11 @@ char    *read_file_content(int fd) {
             file_data = realloc(file_data, i + 10);
             ft_memmove(file_data + i, str, len);
         } else {
-            file_data = ft_strcpy(file_data, str);
+            file_data = ft_strncpy(file_data, str, len);
             free(str);
         }
         i += len;
     }
-    ft_putstr(file_data);
     if (len < 0) {
         ft_putstr_fd("Erreur lors de la lecture du fichier", 2);
         return (NULL);
