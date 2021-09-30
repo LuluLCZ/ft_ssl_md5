@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 10:09:09 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/24 16:18:39 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/30 09:58:10 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,16 @@ void	sha256_process_1(t_8_uint32 tmp_buff, t_64_uint32 chunk)
 	}
 }
 
-static void	sha256_form_buffer(unsigned char *padded_msg, \
-			size_t msg_len, t_8_uint32	buffers)
-{
+char	*ft_sha_256(const char *msg, size_t msg_len) {
+	unsigned char	*padded_msg;
+	t_8_uint32		buffers;
 	size_t		chunk_i;
 	t_64_uint32	chunk;
 	t_8_uint32	tmp_buff;
 	int			i;
 
+	if (!(padded_msg = build_msg(msg, msg_len, SHA256_CHUNK_COUNT(msg_len) * SHA256_SIZE, FALSE)))
+		return (NULL);
 	chunk_i = 0;
 	ft_copy_to_buffer(buffers, g_256_variables, 8);
 	i = 0;
@@ -66,15 +68,6 @@ static void	sha256_form_buffer(unsigned char *padded_msg, \
 		ft_uint32_arr_assign_add(buffers, tmp_buff, 8);
 		chunk_i++;
 	}
-}
-
-char	*ft_sha_256(const char *msg, size_t msg_len) {
-	unsigned char	*padded_msg;
-	t_8_uint32		buffers;
-
-	if (!(padded_msg = build_msg(msg, msg_len, SHA256_CHUNK_COUNT(msg_len) * SHA256_SIZE, FALSE)))
-		return (NULL);
-	sha256_form_buffer(padded_msg, msg_len, buffers);
 	free(padded_msg);
 	return (build_hash(buffers, 8, FALSE));
 }

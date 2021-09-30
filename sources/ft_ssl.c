@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 10:58:50 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/24 17:28:57 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/30 09:55:11 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void    parse_stdin(t_args *args) {
         if (args->flags->p) {
             if (args->flags->q == FALSE && args->flags->r == FALSE) {
                 ft_putstr("(\"");
-                ft_putstr(ft_del_nl(data));
+                result = ft_del_nl(data);
+                ft_putstr(result);
+                free(result);
                 ft_putstr("\") = ");
             }
             if (args->algo == 'm') {
@@ -37,11 +39,13 @@ void    parse_stdin(t_args *args) {
             }
             if (args->flags->q == FALSE && args->flags->r == TRUE) {
                 ft_putstr(" (\"");
-                ft_putstr(ft_del_nl(data));
+                result = ft_del_nl(data);
+                ft_putstr(result);
                 ft_putstr("\")");
+                free(result);
             }
-            ft_putchar('\n');
             free(data);
+            ft_putchar('\n');
         } else {
             ft_putstr("(stdin)= ");
             if (args->algo == 'm') {
@@ -149,6 +153,7 @@ int	main(int ac, char **av)
                 process_last_args(args, args->real_args[i]);
             i++;
         }
+        sleep(500);
     }
 	return (0);
 }

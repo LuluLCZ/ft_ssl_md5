@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:36:48 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/24 17:02:28 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/30 09:59:01 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*build_hash(uint32_t *buffers, size_t buffer_count, \
 	while (buffer_i < buffer_count) 
 	{
 		buffer = is_little_endian ? ft_bswap_uint32(buffers[buffer_i]) : buffers[buffer_i];
-		if (!(tmp_hash = ft_uitoa_base_len(buffer, 16, 'a', 8)))
+		if (!(tmp_hash = ft_itoa_b(buffer, 16, 'a', 8)))
 			return (NULL);
 		ft_strncpy(hash + (buffer_i * 8), tmp_hash, 8);
 		free(tmp_hash);

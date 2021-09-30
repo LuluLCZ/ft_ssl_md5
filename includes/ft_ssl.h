@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:46:23 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/24 16:18:04 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/30 09:59:19 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef uint32_t	t_64_uint32[64];
 typedef uint64_t	t_80_uint32[80];
 typedef uint64_t	t_80_uint64[80];
 
-char			*ft_uitoa_base_len(uintmax_t nb, intmax_t base, \
+char			*ft_itoa_b(uintmax_t nb, intmax_t base, \
 					char letter, size_t len);
 uint64_t		ft_bswap_uint64(uint64_t x);
 uint32_t		ft_bswap_uint32(uint32_t x);

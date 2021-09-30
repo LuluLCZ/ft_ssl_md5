@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:28:17 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/24 16:35:37 by lucien           ###   ########.fr       */
+/*   Updated: 2021/09/30 09:59:07 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_uitoa_base(uintmax_t nb, intmax_t base, char letter)
 	return (str);
 }
 
-char	*ft_uitoa_base_len(uintmax_t nb, intmax_t base, char letter, size_t len)
+char	*ft_itoa_b(uintmax_t nb, intmax_t base, char letter, size_t len)
 {
 	int		i;
 	int		diff;
