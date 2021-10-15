@@ -1,1 +1,1 @@
-bonjour
+'And above all,\n'

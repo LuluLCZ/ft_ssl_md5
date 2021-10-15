@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 10:58:50 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/30 09:55:11 by lucien           ###   ########.fr       */
+/*   Updated: 2021/10/15 14:02:40 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ void    run_hash_s(t_args *args) {
     free(dataa);
 }
 
-void       process_last_args(t_args *args, char *arg) {
-    int i = 0;
+void       process_last_args(t_args *args, char *arg, int i, char **av) {
     char    *data;
     char    *result;
 
@@ -103,7 +102,11 @@ void       process_last_args(t_args *args, char *arg) {
         ft_putstr_fd(args->real_args[i], 2);
         ft_putstr_fd(": No such file or directory\n", 2);
     } else {
-        result = args->algo == 'm' ? ft_md5(data, ft_strlen(data)) : ft_sha_256(data, ft_strlen(data));
+        if (ft_strcmp(av[1], "md5") == 0) {
+            result = ft_md5(data, ft_strlen(data));
+        } else {
+            result = ft_sha_256(data, ft_strlen(data));
+        }
         if (args->flags->q == FALSE && args->flags->r == FALSE) {
             ft_putstr(args->algo == 'm' ? "MD5 (" : "SHA256 (");
             ft_putstr(args->real_args[i]);
@@ -119,7 +122,6 @@ void       process_last_args(t_args *args, char *arg) {
         free(result);
     }
     free(data);
-    i++;
 }
 
 int	main(int ac, char **av)
@@ -150,10 +152,10 @@ int	main(int ac, char **av)
             i = 1;
         while (args->real_args[i]) {
             if ((args->flags->s == FALSE && args->real_args[0]) || (args->flags->s == TRUE && args->real_args[1]))
-                process_last_args(args, args->real_args[i]);
+                process_last_args(args, args->real_args[i], i, av);
             i++;
         }
-        sleep(500);
+        // sleep(500);
     }
 	return (0);
 }
