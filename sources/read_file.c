@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:26:54 by lucien            #+#    #+#             */
-/*   Updated: 2021/10/15 14:15:12 by lucien           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:03:28 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ char    *read_file_content(int fd) {
             ft_putstr_fd("Erreur lors de l'allocation mémoire", 2);
             return (NULL);
         }
-        ft_bzero(str, sizeof(str) * 10000);
+        buff[len] = '\0';
+        ft_bzero(str, sizeof(str) * 100000);
         str = ft_strncpy(str, buff, len);
-        write(1, str, ft_strlen(str));
         if (i > 0)
         {
             file_data = realloc(file_data, i + 1000000);
@@ -43,7 +43,6 @@ char    *read_file_content(int fd) {
         }
         i += len;
     }
-    // write(1, (file_data), ft_strlen(file_data));
     if (len < 0) {
         ft_putstr_fd("Erreur lors de la lecture du fichier", 2);
         return (NULL);

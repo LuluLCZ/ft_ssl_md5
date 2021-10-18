@@ -83,15 +83,6 @@ def test_md5_simple_file_hash():
 
 	assert out == expected
 
-def test_md5_huge_binary_file_hash():
-	if os.environ.get('SPEEDTEST'):
-		return
-	command = [f'{PROGRAM}', 'md5', './en.subject.pdf']
-	out = check_output(command).decode()
-	expected = 'MD5 (./en.subject.pdf) = %s\n' % hashfile('./en.subject.pdf')
-
-	assert out == expected
-
 # subject tests
 def test_md5_subject_1():
 	command = [f'{PROGRAM}', 'md5']
@@ -299,15 +290,6 @@ def test_sha256_simple_file_hash():
 	command = [f'{PROGRAM}', 'sha256', './README.md']
 	out = check_output(command).decode()
 	expected = 'SHA256 (./README.md) = %s\n' % hashfile('./README.md', algo='sha256')
-
-	assert out == expected
-
-def test_sha256_huge_binary_file_hash():
-	if os.environ.get('SPEEDTEST'):
-		return
-	command = [f'{PROGRAM}', 'sha256', './en.subject.pdf']
-	out = check_output(command).decode()
-	expected = 'SHA256 (./en.subject.pdf) = %s\n' % hashfile('./en.subject.pdf', algo='sha256')
 
 	assert out == expected
 

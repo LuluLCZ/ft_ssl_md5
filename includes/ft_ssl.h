@@ -6,7 +6,7 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:46:23 by lucien            #+#    #+#             */
-/*   Updated: 2021/09/30 09:59:19 by lucien           ###   ########.fr       */
+/*   Updated: 2021/10/18 11:52:22 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ typedef struct s_args
 	char		**real_args;
 	int			args_to_jump;
 	char		algo;
+	char		*(*func)(const char *, size_t);
 }				t_args;
+
+typedef struct	s_function_arg 
+{
+	char		*(*func)(const char *, size_t);
+}				t_function_arg;
 
 typedef uint32_t	t_4_uint32[4];
 typedef uint32_t	t_8_uint32[8];

@@ -6,11 +6,19 @@
 /*   By: lucien <lucien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 10:58:50 by lucien            #+#    #+#             */
-/*   Updated: 2021/10/15 14:02:40 by lucien           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:12:19 by lucien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ssl.h"
+
+void    init_function(t_args *args, char **av) {
+    if (ft_strcmp(av[1], "md5") == 0) {
+        args->func = ft_md5;
+    } else if (ft_strcmp(av[1], "sha256") == 0) {
+        args->func = ft_sha_256;
+    } 
+}
 
 void    parse_stdin(t_args *args) {
     char *data;
@@ -27,16 +35,9 @@ void    parse_stdin(t_args *args) {
                 free(result);
                 ft_putstr("\") = ");
             }
-            if (args->algo == 'm') {
-                result = ft_md5(data, ft_strlen(data));
-                ft_putstr(result);
-                free(result);
-            }
-            else {
-                result = ft_sha_256(data, ft_strlen(data));
-                ft_putstr(result);
-                free(result);
-            }
+            result = args->func(data, ft_strlen(data));
+            ft_putstr(result);
+            free(result);
             if (args->flags->q == FALSE && args->flags->r == TRUE) {
                 ft_putstr(" (\"");
                 result = ft_del_nl(data);
@@ -91,7 +92,7 @@ void    run_hash_s(t_args *args) {
     free(dataa);
 }
 
-void       process_last_args(t_args *args, char *arg, int i, char **av) {
+void        process_last_args(t_args *args, char *arg, int i, char **av) {
     char    *data;
     char    *result;
 
@@ -133,8 +134,10 @@ int	main(int ac, char **av)
         exit(-1);
     }
     if (ac >= 2) {
-        if (ft_strcmp(av[1], "md5") == 0)
+
+        if (ft_strcmp(av[1], "md5") == 0){
             args->algo = 'm';
+        }
         else if (ft_strcmp(av[1], "sha256") == 0)
             args->algo = 's';
         else {
@@ -143,6 +146,7 @@ int	main(int ac, char **av)
             ft_putstr_fd(" is an invalid command.\n\nCommands:\nmd5\nsha256\n\nFlags:\n-p -q -r -s\n", 2);
             exit (-1);
         }
+        init_function(args, av);
         args = check_arg(ac, av, args);
         if (args->flags->p || !args->real_args[0])
             parse_stdin(args);
